@@ -16,7 +16,10 @@ public class BaseClass {
 	public static void main(String[] args) throws ParseException {  
 		
 	      float score;
+	      int j;
 	      
+	      for(j = 1; j<=3;j++)
+	        { 
         // Setting System Property for Chrome Driver   
 	    System.setProperty("webdriver.chrome.driver","D:\\Automation\\driver\\chromedriver.exe");  
        
@@ -26,10 +29,10 @@ public class BaseClass {
         // Launch Website  
         driver.navigate().to("https://play.google.com/store/apps/top"); 
      
-        //locating the 1st app on top charts
-        driver.findElement(By.xpath("//*[@id=\"fcxH9b\"]/div[4]/c-wiz/div/c-wiz/div/div"
-     		+ "/c-wiz/c-wiz[1]/c-wiz/div/div[2]/div[1]")).click();
-     
+        //locating the 1st 3 app on top charts  
+        String xpaths = "//*[@id=\"fcxH9b\"]/div[4]/c-wiz/div/c-wiz/div/div/c-wiz/c-wiz[1]/c-wiz/div/div[2]/div["+j+"]";
+        driver.findElement(By.xpath(xpaths)).click();
+        
         // Providing a wait statement to load the elements
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
      
@@ -38,8 +41,7 @@ public class BaseClass {
         System.out.println("Name of Application: "+appName);
      
         //Locating the app reviews counts
-        String reviewTotal = driver.findElement(By.xpath("//*[@id=\"fcxH9b\"]/div[4]/c-wiz[2]/div/div[2]/"
-     		+ "div/div/main/div/div[1]/c-wiz/div[1]/span/span[2]")).getText().trim();
+        String reviewTotal = driver.findElement(By.xpath("//*[@id=\"fcxH9b\"]/div[4]/c-wiz[2]/div/div[2]/" + "div/div/main/div/div[1]/c-wiz/div[1]/span/span[2]")).getText().trim();
      
         String updated = (reviewTotal).replaceAll(",","");
         
@@ -68,6 +70,12 @@ public class BaseClass {
 		//Calculating the score = 
 		score = reviewCount/(lastUpdate);
 		System.out.println("Application score: "+score);
+		
+		//Closing browser
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		driver.quit();
+		
+        }
      
 }
 }
