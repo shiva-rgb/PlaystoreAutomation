@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 
 
@@ -18,14 +20,15 @@ public class BaseClass {
 	      float score;
 	      int j;
 	      
-	      for(j = 1; j<=3;j++)
-	        { 
-        // Setting System Property for Chrome Driver   
-	    System.setProperty("webdriver.chrome.driver","D:\\Automation\\driver\\chromedriver.exe");  
-       
-        // Instantiate a ChromeDriver class.     
-	    WebDriver driver=new ChromeDriver();  
-       
+	    // Setting System Property for Chrome Driver
+	    WebDriverManager.chromedriver().setup();
+	      
+	    // Instantiate a ChromeDriver class.     
+		WebDriver driver=new ChromeDriver(); 
+	      
+	    for(j = 1; j<=3;j++)
+        {  
+	     
         // Launch Website  
         driver.navigate().to("https://play.google.com/store/apps/top"); 
      
@@ -70,12 +73,12 @@ public class BaseClass {
 		//Calculating the score = 
 		score = reviewCount/(lastUpdate);
 		System.out.println("Application score: "+score);
-		
-		//Closing browser
-		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-		driver.quit();
+		System.out.println("-----------------------------------");
 		
         }
+	    //Closing browser
+	  	driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+	  	driver.quit();
      
 }
 }
